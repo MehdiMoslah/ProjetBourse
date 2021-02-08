@@ -122,6 +122,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jLabel4.setText("Quantité vendue");
 
         txtQuantiteVendue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtQuantiteVendue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantiteVendueActionPerformed(evt);
+            }
+        });
 
         btnVendre.setText("Vendre");
         btnVendre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -276,20 +281,55 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void tblActionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblActionsMouseClicked
         
-    int action;
-    double argent;
-    
-    action = Integer.parseInt(tblTraders.getValueAt(tblTraders.getSelectedRow(), 0).toString());   
-
-        
-        
+  int action;
+  double argent;   
+        action = Integer.parseInt(tblActions.getValueAt(tblTraders.getSelectedRow(), 0).toString()); 
+        for(Trader trad : mesTraders)
+            {
+               for(Action act : trad.getActions())
+               {
+                   if(act.getValeurAction()<act.getPrixAchatAction())
+                   {
+                    argent = (act.getValeurAction()*act.getQuantiteAchatAction())-(act.getPrixAchatAction()*act.getQuantiteAchatAction());
+                    lblMessage.setText("Vous avez perdu " + argent + " Sur cette Action ! ");
+                 
+                   }
+                  else if(act.getValeurAction()>act.getPrixAchatAction())
+                {
+                    argent = (act.getValeurAction()*act.getQuantiteAchatAction())-(act.getPrixAchatAction()*act.getQuantiteAchatAction());
+                    lblMessage.setText("Vous avez gagnez " + argent + " Sur cette Action ! ");
+                    
+                }
+           
+                   
+                   
+                   
+               }
+            }                             
     }//GEN-LAST:event_tblActionsMouseClicked
 
     private void btnVendreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVendreMouseClicked
         
-        // A vous de jouer
+         if(txtQuantiteVendue.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(this, "Veuillez saisir un nombre !!!!");
+        }
         
+        double vendez;
+        
+        for(Trader trad : mesTraders)
+        {
+            for(Action act : trad.getActions())
+            {
+               
+             
+            }
+            }
     }//GEN-LAST:event_btnVendreMouseClicked
+
+    private void txtQuantiteVendueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantiteVendueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantiteVendueActionPerformed
 
     /**
      * @param args the command line arguments
